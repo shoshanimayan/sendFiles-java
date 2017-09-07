@@ -5,9 +5,8 @@ public class Client {
 
   public final static int SOCKET_PORT =  9099;      // you may change this
   public final static String SERVER = "127.0.0.1";  // localhost
-  public final static String RECEIVED = "C:\\Users\\Shoshani\\Documents\\temp2.txt";  // you may change this, I give a
-                                                            // different name because i don't want to
-                                                            // overwrite the one used by server...
+  public static String RECEIVED = "C:\\Users\\Shoshani\\Documents\\";  // you may change this root
+
 
   public final static int FILE_SIZE = 6022386; // file size temporary hard coded should bigger than the file to be downloaded
 
@@ -17,6 +16,7 @@ public class Client {
     FileOutputStream fos = null;
     BufferedOutputStream bos = null;
     Socket sock = null;
+    Console c = System.console();
     try {
       sock = new Socket(SERVER, SOCKET_PORT);
       System.out.println("Connecting...");
@@ -24,6 +24,9 @@ public class Client {
       // receive file
       byte [] mybytearray  = new byte [FILE_SIZE];
       InputStream is = sock.getInputStream();
+      String file;
+      file = c.readLine();
+      RECEIVED= RECEIVED+file;
       fos = new FileOutputStream(RECEIVED);
       bos = new BufferedOutputStream(fos);
       bytesRead = is.read(mybytearray,0,mybytearray.length);
